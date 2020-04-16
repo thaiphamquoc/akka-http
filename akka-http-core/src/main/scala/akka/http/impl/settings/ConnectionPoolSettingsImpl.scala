@@ -29,8 +29,7 @@ private[akka] final case class ConnectionPoolSettingsImpl(
   connectionSettings:                ClientConnectionSettings,
   poolImplementation:                PoolImplementation,
   responseEntitySubscriptionTimeout: Duration,
-  hostOverrides:                     immutable.Seq[(Regex, ConnectionPoolSettings)],
-  hostOverrideImpl:                  HostOverride)
+  hostOverrides:                     immutable.Seq[(Regex, ConnectionPoolSettings)])
   extends ConnectionPoolSettings {
 
   require(maxConnections > 0, "max-connections must be > 0")
@@ -143,8 +142,7 @@ private[akka] object ConnectionPoolSettingsImpl extends SettingsCompanionImpl[Co
         case "new"    => PoolImplementation.New
       },
       c getPotentiallyInfiniteDuration "response-entity-subscription-timeout",
-      List.empty,
-      NoOpHostOverride
+      List.empty
     )
   }
 
